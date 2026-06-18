@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideas LED Quino — Pistas Iluminadas</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --dark: #111111;
+    --card: #161616;
+    --crimson: #B5173A;
+    --red: #E01840;
+    --glow-r: #FF3366;
+    --glow-g: #22FF77;
+    --glow-b: #3B82FF;
+    --glow-y: #FFD700;
+    --white: #F5F5F5;
+    --muted: #888888;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .logo-badge {
+    width: 48px; height: 48px;
+    background: #000;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: 4px;
+  }
+
+  .logo-ideas {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .logo-led-dots {
+    display: flex; gap: 1px; margin: 1px 0;
+  }
+
+  .dot-r { width: 5px; height: 5px; border-radius: 50%; background: #FF3333; }
+  .dot-g { width: 5px; height: 5px; border-radius: 50%; background: #3333FF; }
+  .dot-b { width: 5px; height: 5px; border-radius: 50%; background: #33FF33; }
+
+  .logo-quino {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .nav-brand-text {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+
+  .nav-brand-text span:first-child {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: 2px;
+  }
+
+  .nav-brand-text span:last-child {
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--red);
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    letter-spacing: 1px;
+  }
+
+  .nav-cta:hover { background: #FF2D55 !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 48px 80px;
+  }
+
+  /* LED pixel grid background */
+  .led-grid {
+    position: absolute; inset: 0;
+    background-color: #080808;
+    background-image:
+      radial-gradient(circle, rgba(255,51,102,0.18) 1px, transparent 1px),
+      radial-gradient(circle, rgba(59,130,255,0.12) 1px, transparent 1px),
+      radial-gradient(circle, rgba(34,255,119,0.1) 1px, transparent 1px);
+    background-size: 48px 48px, 72px 72px, 60px 60px;
+    background-position: 0 0, 24px 24px, 12px 12px;
+    animation: gridPulse 6s ease-in-out infinite;
+  }
+
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  .hero-glow-r {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(224,24,64,0.35) 0%, transparent 70%);
+    bottom: -200px; right: -100px;
+    animation: floatGlow 8s ease-in-out infinite;
+  }
+
+  .hero-glow-b {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,255,0.25) 0%, transparent 70%);
+    top: -150px; left: -100px;
+    animation: floatGlow 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatGlow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.97); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1100px; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(224,24,64,0.15);
+    border: 1px solid rgba(224,24,64,0.4);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 7vw, 110px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .hero-title .accent {
+    color: var(--red);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 28px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+    max-width: 460px;
+    margin-bottom: 40px;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 24px rgba(224,24,64,0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(224,24,64,0.6);
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.25);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* LED floor visual */
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .led-floor-preview {
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 1;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 80px rgba(224,24,64,0.3), 0 0 40px rgba(59,130,255,0.2);
+  }
+
+  .floor-canvas {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    gap: 2px;
+    padding: 8px;
+  }
+
+  .floor-dot {
+    border-radius: 50%;
+    animation: dotPulse var(--delay, 2s) ease-in-out infinite;
+    transition: background 0.3s;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.7); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  /* hero stats */
+  .hero-stats {
+    position: absolute; bottom: -24px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 48px;
+    background: rgba(16,16,16,0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 40px;
+    z-index: 3;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .stat-divider {
+    width: 1px; background: var(--border);
+    align-self: stretch;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 120px 48px 80px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 72px);
+    letter-spacing: 2px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .section-title .dim { color: rgba(255,255,255,0.25); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .feat {
+    background: var(--card);
+    padding: 40px 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feat::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .feat:hover { background: #1a1a1a; }
+  .feat:hover::after { transform: scaleX(1); }
+
+  .feat-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .feat-icon.red { background: rgba(224,24,64,0.15); }
+  .feat-icon.blue { background: rgba(59,130,255,0.15); }
+  .feat-icon.green { background: rgba(34,197,94,0.15); }
+
+  .feat h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .feat p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  /* ── PRODUCTS ── */
+  .products {
+    padding: 80px 48px 100px;
+    background: var(--dark);
+  }
+
+  .products-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .products-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(224,24,64,0.15);
+  }
+
+  .product-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    z-index: 2;
+  }
+
+  .product-visual {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .product-visual.burbuja {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0510 50%, #0a0a18 100%);
+  }
+
+  .product-visual.bala {
+    background: linear-gradient(135deg, #0a0a10 0%, #080018 50%, #0a0a0a 100%);
+  }
+
+  /* mini floor grids in cards */
+  .mini-floor {
+    width: 160px; height: 160px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 3px;
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 0 30px currentColor;
+  }
+
+  .mini-floor.burbuja { box-shadow: 0 0 40px rgba(255,100,200,0.3); }
+  .mini-floor.bala    { box-shadow: 0 0 40px rgba(100,200,255,0.3); }
+
+  .mini-dot {
+    border-radius: 50%;
+    animation: dotPulse var(--d, 2s) ease-in-out infinite;
+  }
+
+  .product-body { padding: 28px; }
+
+  .product-type {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .product-specs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .spec-chip {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .product-prices {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+
+  .price-item { }
+
+  .price-size {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .price-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  .price-unit {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  .product-footer {
+    padding: 16px 28px;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .warranty-badge {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .warranty-badge strong { color: var(--white); }
+
+  .btn-card {
+    background: var(--red);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .btn-card:hover { opacity: 0.85; }
+
+  /* ── ROBOTS ── */
+  .robots {
+    padding: 100px 48px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .robots-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .robots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .robot-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .robot-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .robot-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(224,24,64,0.3);
+  }
+
+  .robot-card:hover::before { transform: scaleX(1); }
+
+  .robot-emoji {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .robot-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .robot-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .robot-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--red);
+    letter-spacing: 1px;
+  }
+
+  .robot-price-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .robots-note {
+    margin-top: 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .robots-note-item h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .robots-note-item p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── PAYMENT ── */
+  .payment-section {
+    background: var(--dark);
+    padding: 80px 48px;
+  }
+
+  .payment-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  .payment-methods {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px;
+  }
+
+  .pay-method {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex; align-items: center; gap: 14px;
+    transition: border-color 0.2s;
+  }
+
+  .pay-method:hover { border-color: rgba(224,24,64,0.3); }
+
+  .pay-icon { font-size: 28px; }
+
+  .pay-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--white);
+  }
+
+  .pay-detail {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .shipping-box {
+    background: linear-gradient(135deg, rgba(224,24,64,0.12), rgba(59,130,255,0.08));
+    border: 1px solid rgba(224,24,64,0.25);
+    border-radius: 12px;
+    padding: 40px;
+  }
+
+  .shipping-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .shipping-box p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .shipping-items { display: flex; flex-direction: column; gap: 12px; }
+
+  .ship-item {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .ship-item::before {
+    content: '→';
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  /* ── CTA / CONTACT ── */
+  .cta-section {
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg-glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(224,24,64,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 6vw, 96px);
+    letter-spacing: 3px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+
+  .cta-section h2 .highlight { color: var(--red); }
+
+  .cta-section p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px; margin: 0 auto 40px;
+    position: relative; z-index: 1;
+  }
+
+  .cta-actions {
+    display: flex; justify-content: center; gap: 16px;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+
+  .btn-whatsapp {
+    display: flex; align-items: center; gap: 10px;
+    background: #25D366;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(37,211,102,0.3);
+  }
+
+  .btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(37,211,102,0.5);
+  }
+
+  .wa-icon { font-size: 20px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--black);
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+
+  .footer-brand span { color: var(--red); }
+
+  .footer-links {
+    display: flex; gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 80px; }
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 20px; padding: 20px; }
+    .features { padding: 80px 24px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .products { padding: 60px 24px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .products-header { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .robots { padding: 60px 24px; }
+    .robots-grid { grid-template-columns: 1fr 1fr; }
+    .robots-note { grid-template-columns: 1fr; gap: 20px; }
+    .payment-inner { grid-template-columns: 1fr; gap: 40px; }
+    .payment-section { padding: 60px 24px; }
+    .cta-section { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .robots-grid { grid-template-columns: 1fr; }
+    .product-prices { grid-template-columns: 1fr; }
+    .payment-methods { grid-template-columns: 1fr; }
+    .hero-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-badge">
+      <span class="logo-ideas">IDEAS</span>
+      <div class="logo-led-dots">
+        <div class="dot-r"></div>
+        <div class="dot-g"></div>
+        <div class="dot-b"></div>
+      </div>
+      <span class="logo-quino">QUINO</span>
+    </div>
+    <div class="nav-brand-text">
+      <span>IDEAS LED</span>
+      <span>Quino</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#productos">Pistas</a></li>
+    <li><a href="#robots">Robots LED</a></li>
+    <li><a href="#pago">Pago & Envío</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="led-grid"></div>
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-b"></div>
+
+  <div class="hero-content">
+    <div>
+      <div class="hero-tag">Pistas de baile LED · Venta directa</div>
+      <h1 class="hero-title">
+        ILUMINA<br>
+        <span class="accent">TU EVENTO</span>
+      </h1>
+      <p class="hero-subtitle">CON ESTILO Y CALIDAD</p>
+      <p class="hero-desc">
+        Pistas LED pixel de alta resistencia con iluminación RGB dinámica, vidrio templado 9mm y chasis de acero. Modulares, personalizables y listas para cualquier espacio.
+      </p>
+      <div class="hero-btns">
+        <a href="#contacto" class="btn-primary">Ver Catálogo</a>
+        <a href="#productos" class="btn-outline">Conocer Modelos</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="led-floor-preview">
+        <div class="floor-canvas" id="heroFloor"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">25</div>
+      <div class="stat-label">Módulos máx.</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">6×6m</div>
+      <div class="stat-label">Tamaño máximo</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">RGB</div>
+      <div class="stat-label">Iluminación</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">9mm</div>
+      <div class="stat-label">Vidrio templado</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">MX</div>
+      <div class="stat-label">Envíos a toda la Rep.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="caracteristicas">
+  <p class="section-eyebrow">¿Por qué Ideas LED?</p>
+  <h2 class="section-title">CALIDAD <span class="dim">QUE SE<br>NOTA</span></h2>
+
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-icon red">🔩</div>
+      <h3>ALTA RESISTENCIA</h3>
+      <p>Chasis de acero, acabados en aluminio y vidrio templado de 9mm. Soporta tráfico intenso noche tras noche.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon blue">💡</div>
+      <h3>LED RGB DINÁMICO</h3>
+      <p>Colores intensos con control en tiempo real. Efectos sincronizados para crear la atmósfera perfecta en tu evento.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon green">🔧</div>
+      <h3>FÁCIL INSTALACIÓN</h3>
+      <p>Sistema modular con conector XLR y bases niveladoras. Te asesoramos en el montaje sin costo adicional.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon red">📐</div>
+      <h3>100% PERSONALIZABLE</h3>
+      <p>Armamos la pista al tamaño que necesites. Cada módulo mide 1.20m × 1.20m para adaptarse a cualquier espacio.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon blue">🌐</div>
+      <h3>INTERIOR Y EXTERIOR</h3>
+      <p>Diseñadas para funcionar tanto en piso como en jardín. Ideales para bodas, quinceañeras, corporativos y más.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon green">🚚</div>
+      <h3>ENVÍOS A TODA LA REP.</h3>
+      <p>Mandamos a cualquier estado de México. El costo de envío se calcula según tu ubicación al momento de la compra.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="productos">
+  <div class="products-inner">
+    <div class="products-header">
+      <div>
+        <p class="section-eyebrow">Catálogo de Pistas</p>
+        <h2 class="section-title">PISTAS <span class="dim">ILUMINADAS</span></h2>
+      </div>
+      <a href="#contacto" class="btn-outline">Cotizar ahora →</a>
+    </div>
+
+    <div class="products-grid">
+      <!-- BURBUJA -->
+      <div class="product-card">
+        <span class="product-badge">Premium</span>
+        <div class="product-visual burbuja">
+          <div class="mini-floor burbuja" id="floorBurbuja"></div>
+        </div>
+        <div class="product-body">
+          <p class="product-type">Pista LED Pixel</p>
+          <h3 class="product-name">LED DE BURBUJA</h3>
+          <div class="product-specs">
+            <span class="spec-chip">64 LEDs / módulo</span>
+            <span class="spec-chip">1.20m × 1.20m</span>
+            <span class="spec-chip">Vidrio 9mm</span>
+            <span class="spec-chip">Conector XLR</span>
+            <span class="spec-chip">Control real-time</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-item">
+              <p class="price-size">4.80 × 4.80m</p>
+              <p class="price-val">$124,800<span class="price-unit">16 módulos</span></p>
+            </div>
+            <div class="price-item">
+              <p class="price-size">6 × 4.80m</p>
+              <p class="price-val">$156,000<span class="price-unit">20 módulos</span></p>
+            </div>
+            <div class="price-item">
+              <p class="price-size">6 × 6m</p>
+              <p class="price-val">$195,000<span class="price-unit">25 módulos</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <p class="warranty-badge">Garantía: <strong>1 año</strong> · $7,800/módulo</p>
+          <a href="#contacto" class="btn-card">Cotizar</a>
+        </div>
+      </div>
+
+      <!-- BALA -->
+      <div class="product-card">
+        <div class="product-visual bala">
+          <div class="mini-floor bala" id="floorBala"></div>
+        </div>
+        <div class="product-body">
+          <p class="product-type">Pista LED Pixel</p>
+          <h3 class="product-name">LED DE BALA</h3>
+          <div class="product-specs">
+            <span class="spec-chip">144 LEDs / módulo</span>
+            <span class="spec-chip">1.20m × 1.20m</span>
+            <span class="spec-chip">Vidrio 9mm</span>
+            <span class="spec-chip">Conector XLR</span>
+            <span class="spec-chip">Acero + Aluminio</span>
+          </div>
+          <div class="product-prices">
+            <div class="price-item">
+              <p class="price-size">4.80 × 4.80m</p>
+              <p class="price-val">$104,000<span class="price-unit">16 módulos</span></p>
+            </div>
+            <div class="price-item">
+              <p class="price-size">6 × 4.80m</p>
+              <p class="price-val">$130,000<span class="price-unit">20 módulos</span></p>
+            </div>
+            <div class="price-item">
+              <p class="price-size">6 × 6m</p>
+              <p class="price-val">$162,500<span class="price-unit">25 módulos</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="product-footer">
+          <p class="warranty-badge">Garantía: <strong>3 meses</strong> · $6,500/módulo</p>
+          <a href="#contacto" class="btn-card">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROBOTS -->
+<section class="robots" id="robots">
+  <div class="robots-header">
+    <p class="section-eyebrow">Para tus eventos</p>
+    <h2 class="section-title">ROBOT <span class="dim">LED</span></h2>
+    <p style="color:var(--muted); max-width:480px; margin:16px auto 0; font-size:14px; line-height:1.7;">
+      Trajes LED articulados que se usan para animar cualquier evento. Fabricación en 20 días, diseñados a detalle.
+    </p>
+  </div>
+
+  <div class="robots-grid">
+    <div class="robot-card">
+      <span class="robot-emoji">🤖</span>
+      <h3 class="robot-name">OPTIMUS PRIME</h3>
+      <p class="robot-desc">El clásico líder Autobots en versión LED. Imponente y lleno de luz.</p>
+      <p class="robot-price">$30,000</p>
+      <span class="robot-price-label">por traje</span>
+    </div>
+    <div class="robot-card">
+      <span class="robot-emoji">🐝</span>
+      <h3 class="robot-name">BUMBLEBEE</h3>
+      <p class="robot-desc">Amarillo vibrante con detalles LED verdes. Perfecto para quinceañeras y bodas.</p>
+      <p class="robot-price">$30,000</p>
+      <span class="robot-price-label">por traje</span>
+    </div>
+    <div class="robot-card">
+      <span class="robot-emoji">⚔️</span>
+      <h3 class="robot-name">HALO</h3>
+      <p class="robot-desc">Inspirado en el Master Chief. Presencia épica en cualquier evento.</p>
+      <p class="robot-price">$30,000</p>
+      <span class="robot-price-label">por traje</span>
+    </div>
+    <div class="robot-card">
+      <span class="robot-emoji">👾</span>
+      <h3 class="robot-name">DEPREDADOR</h3>
+      <p class="robot-desc">El cazador intergaláctico iluminado en azul neón. Impacto visual garantizado.</p>
+      <p class="robot-price">$30,000</p>
+      <span class="robot-price-label">por traje</span>
+    </div>
+  </div>
+
+  <div class="robots-note">
+    <div class="robots-note-item">
+      <h4>Tiempo de fabricación</h4>
+      <p>20 días hábiles. La entrega depende de la carga de trabajo al momento del pedido.</p>
+    </div>
+    <div class="robots-note-item">
+      <h4>Esquema de pago</h4>
+      <p>50% de anticipo al confirmar el pedido y 50% al entregar el traje terminado.</p>
+    </div>
+    <div class="robots-note-item">
+      <h4>Asesoría incluida</h4>
+      <p>Te brindamos soporte para el manejo del traje, instalación y primeros eventos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment-section" id="pago">
+  <div class="payment-inner">
+    <div>
+      <p class="section-eyebrow">Formas de pago</p>
+      <h2 class="section-title">MÉTODOS <span class="dim">DE PAGO</span></h2>
+      <div class="payment-methods">
+        <div class="pay-method">
+          <span class="pay-icon">💵</span>
+          <div>
+            <p class="pay-name">Efectivo</p>
+            <p class="pay-detail">Pago directo al recibir</p>
+          </div>
+        </div>
+        <div class="pay-method">
+          <span class="pay-icon">📲</span>
+          <div>
+            <p class="pay-name">Transferencia</p>
+            <p class="pay-detail">SPEI a cuenta bancaria</p>
+          </div>
+        </div>
+        <div class="pay-method">
+          <span class="pay-icon">🏦</span>
+          <div>
+            <p class="pay-name">Depósito</p>
+            <p class="pay-detail">En sucursal bancaria</p>
+          </div>
+        </div>
+        <div class="pay-method">
+          <span class="pay-icon">💳</span>
+          <div>
+            <p class="pay-name">Tarjeta</p>
+            <p class="pay-detail">Crédito y débito</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shipping-box">
+      <h3>ENVÍOS A TODA LA REPÚBLICA</h3>
+      <p>Mandamos tus pistas LED a cualquier estado de México. El costo de envío se calcula según tu ubicación al momento de la compra.</p>
+      <div class="shipping-items">
+        <div class="ship-item">Empaque seguro para cada módulo</div>
+        <div class="ship-item">Asesoría en instalación incluida</div>
+        <div class="ship-item">Soporte personalizado post-venta</div>
+        <div class="ship-item">Garantía desde el día de entrega</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+  <div class="cta-bg-glow"></div>
+  <h2>¿LISTO PARA<br><span class="highlight">ILUMINAR</span><br>TU EVENTO?</h2>
+  <p>Escríbenos por WhatsApp para cotización inmediata, asesoría personalizada y más información sobre nuestros productos.</p>
+  <div class="cta-actions">
+    <a href="https://wa.me/527751069872" target="_blank" class="btn-whatsapp">
+      <span class="wa-icon">💬</span>
+      775 106 9872 · WhatsApp
+    </a>
+    <a href="mailto:ideasledquino@gmail.com" class="btn-outline">Enviar correo</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">IDEAS <span>LED</span> · QUINO</div>
+  <ul class="footer-links">
+    <li><a href="#productos">Pistas LED</a></li>
+    <li><a href="#robots">Robots</a></li>
+    <li><a href="#pago">Envíos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Ideas LED Quino · México</p>
+</footer>
+
+<script>
+  // ── Generate hero LED floor ──
+  const heroFloor = document.getElementById('heroFloor');
+  const colors = ['#FF3366','#3B82FF','#22FF77','#FFD700','#FF6600','#CC33FF','#00FFFF'];
+  
+  for (let i = 0; i < 256; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'floor-dot';
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    const delay = (Math.random() * 4).toFixed(2);
+    dot.style.cssText = `background:${c}; --delay:${delay}s; animation-delay:${delay}s;`;
+    heroFloor.appendChild(dot);
+  }
+
+  // ── Generate product card floors ──
+  function buildMiniFloor(id, palette) {
+    const el = document.getElementById(id);
+    for (let i = 0; i < 100; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'mini-dot';
+      const c = palette[Math.floor(Math.random() * palette.length)];
+      const d = (Math.random() * 3 + 1).toFixed(2);
+      dot.style.cssText = `background:${c}; --d:${d}s; animation-delay:${(Math.random()*3).toFixed(2)}s;`;
+      el.appendChild(dot);
+    }
+  }
+
+  buildMiniFloor('floorBurbuja', ['#FF3366','#CC33FF','#FF6699','#FF0099','#9933FF']);
+  buildMiniFloor('floorBala',    ['#3B82FF','#22FF77','#00FFFF','#33CCFF','#00FF99']);
+
+  // ── Scroll-triggered fade-in ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feat, .product-card, .robot-card, .pay-method').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
