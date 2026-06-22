@@ -44,10 +44,10 @@
   }
 
   .nav-logo { display: flex; align-items: center; gap: 12px; padding-left: 8px; }
-  .logo-img { height: 80px; width: auto; display: block; object-fit: contain; }
+  .logo-img { height: 100px; width: auto; display: block; object-fit: contain; }
 
-  @media (max-width: 900px) { .logo-img { height: 65px; } }
-  @media (max-width: 600px) { .logo-img { height: 52px; } }
+  @media (max-width: 900px) { .logo-img { height: 80px; } }
+  @media (max-width: 600px) { .logo-img { height: 65px; } }
 
   .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
 
@@ -117,11 +117,11 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
+    min-height: 88vh;
     display: flex; align-items: center; justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 120px 48px 100px;
+    padding: 80px 48px 48px;
   }
 
   .led-grid {
@@ -179,7 +179,7 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--red);
-    margin-bottom: 24px;
+    margin-bottom: 14px;
   }
 
   .hero-tag::before {
@@ -198,7 +198,7 @@
     line-height: 1.0;
     letter-spacing: 1.5px;
     color: var(--white);
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   .hero-title .accent { color: var(--red); }
@@ -208,12 +208,12 @@
     line-height: 1.7;
     color: rgba(255,255,255,0.6);
     max-width: 460px;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
   }
 
   .hero-benefits {
-    display: flex; flex-direction: column; gap: 10px;
-    margin-bottom: 36px;
+    display: flex; flex-direction: column; gap: 7px;
+    margin-bottom: 20px;
   }
 
   .hero-benefit {
@@ -875,35 +875,40 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
-    max-width: 200px;
+    max-width: 240px;
   }
 
   .calc-qty-btn {
-    background: rgba(255,255,255,0.06);
+    background: rgba(224,24,64,0.15);
     border: none;
+    border-right: 1px solid rgba(255,255,255,0.08);
     color: var(--white);
-    width: 44px; height: 48px;
-    font-size: 22px;
+    width: 56px; height: 56px;
+    font-size: 28px;
     cursor: pointer;
     transition: background 0.2s;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 300;
+    font-weight: 400;
+    flex-shrink: 0;
   }
 
-  .calc-qty-btn:hover { background: rgba(224,24,64,0.25); }
+  #calcPlus { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+
+  .calc-qty-btn:hover { background: rgba(224,24,64,0.4); color: #fff; }
 
   .calc-qty-input {
     flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     color: var(--white);
-    font-size: 22px;
+    font-size: 24px;
     font-family: 'Bebas Neue', sans-serif;
     text-align: center;
     outline: none;
     letter-spacing: 1px;
     -moz-appearance: textfield;
-    height: 48px;
+    height: 56px;
   }
 
   .calc-qty-input::-webkit-outer-spin-button,
@@ -1276,20 +1281,34 @@
   .map-visual {
     position: relative;
     display: flex; align-items: center; justify-content: center;
-    height: 380px;
   }
 
-  .map-illustration {
-    width: 100%; max-width: 360px;
+  .map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
   }
 
-  .map-glow-dot {
+  .map-base-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 12px rgba(224,24,64,0.5)) brightness(0.82);
+  }
+
+  .map-nodes-svg {
     position: absolute;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--red);
-    box-shadow: 0 0 12px var(--red);
-    animation: blink 2s ease-in-out infinite;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  @media (max-width: 900px) {
+    .map-wrap { max-width: 440px; }
+  }
+  @media (max-width: 600px) {
+    .map-wrap { max-width: 100%; }
   }
 
   /* ── TESTIMONIALS ── */
@@ -1436,7 +1455,7 @@
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hero { padding: 100px 24px 60px; }
+    .hero { padding: 70px 20px 40px; }
     .hero-content { grid-template-columns: 1fr; gap: 40px; }
     .hero-visual { display: none; }
     .trust-bar { padding: 24px; }
@@ -1458,6 +1477,138 @@
     footer { flex-direction: column; text-align: center; padding: 32px 24px; }
     .footer-links { justify-content: center; }
   }
+
+  /* ── STICKY NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0; z-index: 500;
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 0 24px;
+  }
+  .sticky-nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sticky-nav-inner::-webkit-scrollbar { display: none; }
+  .snav-btn {
+    color: rgba(255,255,255,0.55);
+    font-size: 11px; font-weight: 700;
+    text-decoration: none;
+    padding: 13px 20px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .snav-btn:hover { color: #fff; border-bottom-color: var(--red); }
+  .snav-wa { margin-left: auto; color: #22cc55 !important; }
+  .snav-wa:hover { border-bottom-color: #22cc55 !important; }
+  @media (max-width: 600px) {
+    .snav-btn { padding: 11px 14px; font-size: 10px; }
+  }
+
+  /* ── FEATURES SLIDER ── */
+  .features-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 8px 0 28px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(224,24,64,0.35) transparent;
+  }
+  .features-slider::-webkit-scrollbar { height: 3px; }
+  .features-slider::-webkit-scrollbar-thumb { background: rgba(224,24,64,0.35); border-radius: 2px; }
+  .feat-slide {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+  }
+  @media (max-width: 600px) { .feat-slide { flex: 0 0 195px; } }
+
+  /* ── ACCORDION ── */
+  .why-accordion { margin-top: 32px; }
+  .acc-item {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .acc-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 0;
+    user-select: none;
+  }
+  .acc-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--red);
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .acc-title-text {
+    flex: 1;
+    font-size: 14px; font-weight: 700;
+    color: rgba(255,255,255,0.88);
+    letter-spacing: 0.3px;
+  }
+  .acc-arrow {
+    color: rgba(255,255,255,0.35);
+    font-size: 18px;
+    transition: transform 0.3s ease, color 0.2s;
+    line-height: 1; flex-shrink: 0;
+  }
+  .acc-item.open .acc-arrow { transform: rotate(90deg); color: var(--red); }
+  .acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.32s ease, padding 0.32s ease;
+    padding-bottom: 0;
+  }
+  .acc-item.open .acc-body { max-height: 100px; padding-bottom: 14px; }
+  .acc-body p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.65;
+    padding-left: 42px;
+  }
+
+  /* ── EVENTS GALLERY TOGGLE ── */
+  .events-more { display: contents; }
+  .events-more.ev-hidden { display: none; }
+  .gallery-toggle-wrap { display: flex; justify-content: center; margin-top: 20px; }
+  .gallery-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: rgba(255,255,255,0.6);
+    padding: 11px 28px;
+    border-radius: 4px;
+    font-size: 12px; font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .gallery-toggle-btn:hover { border-color: var(--red); color: #fff; }
+
+  /* ── PDF BUTTON PLACEHOLDER ── */
+  .calc-pdf-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.38);
+    padding: 11px;
+    border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-top: 10px;
+    transition: all 0.2s;
+  }
+  .calc-pdf-btn:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
 </style>
 </head>
 <body>
@@ -1549,231 +1700,16 @@
   </div>
 </div>
 
-<!-- FEATURES -->
-<section class="features" id="caracteristicas">
-  <p class="section-eyebrow">Características</p>
-  <h2 class="section-title">CALIDAD <span class="dim">QUE SE NOTA</span></h2>
 
-  <div class="features-grid">
-    <div class="feat">
-      <div class="feat-icon red">🔩</div>
-      <h3>ALTA RESISTENCIA</h3>
-      <p>Chasis de acero, acabados en aluminio y vidrio templado de 9mm. Soporta tráfico intenso noche tras noche.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-icon blue">💡</div>
-      <h3>LED RGB DINÁMICO</h3>
-      <p>Colores intensos con efectos sincronizados para crear la atmósfera perfecta en tu evento.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-icon green">🔧</div>
-      <h3>INSTALACIÓN SENCILLA</h3>
-      <p>Sistema modular con conector XLR y bases niveladoras. Te asesoramos en el montaje sin costo adicional.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-icon red">🎛️</div>
-      <h3>CONTROL EN TIEMPO REAL</h3>
-      <p>Maneja patrones, colores e intensidad desde el control incluido, sincronizado con la música del evento.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-icon blue">🌐</div>
-      <h3>INTERIOR Y EXTERIOR</h3>
-      <p>Diseñadas para funcionar tanto en piso como en jardín. Ideales para bodas, XV años, corporativos y más.</p>
-    </div>
-    <div class="feat">
-      <div class="feat-icon green">🚚</div>
-      <h3>ENVÍOS NACIONALES</h3>
-      <p>Mandamos a cualquier estado de México. El costo se calcula según tu ubicación al momento de la compra.</p>
-    </div>
+<!-- STICKY NAV -->
+<div class="sticky-nav" id="stickyNav">
+  <div class="sticky-nav-inner">
+    <a href="#productos" class="snav-btn">📋 Catálogo</a>
+    <a href="#eventos" class="snav-btn">📸 Galería</a>
+    <a href="#videos" class="snav-btn">▶ Videos</a>
+    <a href="https://wa.me/527751069872" target="_blank" class="snav-btn snav-wa">💬 WhatsApp</a>
   </div>
-</section>
-
-<!-- WHY CHOOSE US -->
-<section class="why-us">
-  <div class="why-us-inner">
-    <p class="section-eyebrow">Nuestra marca</p>
-    <h2 class="section-title">¿POR QUÉ ELEGIR <span class="dim">IDEAS LED?</span></h2>
-    <p class="section-desc">Fabricamos pistas LED y robots para eventos con materiales resistentes, iluminación profesional y soporte personalizado.</p>
-
-    <div class="why-grid">
-      <div class="why-card">
-        <span class="why-num">01</span>
-        <div class="why-card-text">
-          <h4>Chasis de acero</h4>
-          <p>Estructura robusta para uso constante</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <span class="why-num">02</span>
-        <div class="why-card-text">
-          <h4>Acabados de aluminio</h4>
-          <p>Resistencia ligera y duradera</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <span class="why-num">03</span>
-        <div class="why-card-text">
-          <h4>Vidrio templado 9mm</h4>
-          <p>Seguridad para soportar tráfico de bailarines</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <span class="why-num">04</span>
-        <div class="why-card-text">
-          <h4>Control en tiempo real</h4>
-          <p>Maneja la iluminación al ritmo del evento</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <span class="why-num">05</span>
-        <div class="why-card-text">
-          <h4>Bases niveladoras</h4>
-          <p>Instalación estable en cualquier superficie</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <span class="why-num">06</span>
-        <div class="why-card-text">
-          <h4>Asesoría incluida</h4>
-          <p>Soporte en manejo de control e instalación</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mini-cta">
-      <a href="https://wa.me/527751069872" target="_blank" class="btn-primary">💬 Cotizar por WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- REAL EVENTS -->
-<section class="events" id="eventos">
-  <div class="section-header-center">
-    <p class="section-eyebrow">Presencia nacional</p>
-    <h2 class="section-title">EVENTOS REALES EN <span class="dim">TODA LA REPÚBLICA</span></h2>
-    <p class="section-desc">Nuestros productos han estado presentes en bodas, XV años, fiestas y eventos corporativos.</p>
-  </div>
-
-  <div class="events-gallery">
-    <div class="event-card event-tall">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/evento_1_qgvymt.png"
-             alt="Pista LED en boda"
-             loading="lazy"
-             style="object-position: center top;">
-      </div>
-      <div class="event-label"><span class="event-tag">💒</span> Bodas</div>
-    </div>
-
-    <div class="event-card">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/xv1_lggtad.png"
-             alt="Pista LED en fiesta de XV años"
-             loading="lazy"
-             style="object-position: center;">
-      </div>
-      <div class="event-label"><span class="event-tag">🎉</span> XV Años</div>
-    </div>
-
-    <div class="event-card">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
-             alt="Pista LED en evento corporativo"
-             loading="lazy"
-             style="object-position: center;">
-      </div>
-      <div class="event-label"><span class="event-tag">🏢</span> Corporativos</div>
-    </div>
-
-    <div class="event-card event-wide">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
-             alt="Instalación grande de pistas LED"
-             loading="lazy"
-             style="object-position: center;">
-      </div>
-      <div class="event-label"><span class="event-tag">🎊</span> Eventos grandes — configuración sin límite de módulos</div>
-    </div>
-
-    <div class="event-card">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/robots1_fr2nw8.png"
-             alt="Robots LED en evento"
-             loading="lazy"
-             style="object-position: center top;">
-      </div>
-      <div class="event-label"><span class="event-tag">🤖</span> Robots LED</div>
-    </div>
-
-    <div class="event-card">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/pista_1_qlr2kp.png"
-             alt="Pista LED en fiesta privada"
-             loading="lazy"
-             style="object-position: center;">
-      </div>
-      <div class="event-label"><span class="event-tag">✨</span> Fiestas privadas</div>
-    </div>
-  </div>
-
-  <div class="gallery-note">
-    <div class="gallery-note-inner">
-      <div class="gallery-note-icon">📸</div>
-      <div>
-        <p class="gallery-note-title">Galería de proyectos reales en actualización</p>
-        <p class="gallery-note-text">Próximamente publicaremos fotografías de nuestras instalaciones reales en todo México.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- VIDEOS -->
-<section class="videos-section" id="videos">
-  <div class="videos-inner">
-    <p class="section-eyebrow">Demostraciones</p>
-    <h2 class="section-title">MIRA NUESTROS PRODUCTOS <span class="dim">EN ACCIÓN</span></h2>
-    <p class="section-desc" style="margin: 0 auto;">Videos reales de instalaciones, eventos y funcionamiento de nuestros productos.</p>
-
-    <div class="video-frame-wrap">
-      <div class="video-container" id="videoContainer">
-        <!-- YouTube thumbnail fallback -->
-        <div class="video-thumb" id="videoThumb" onclick="loadVideo()" title="Reproducir video">
-          <img src="https://img.youtube.com/vi/FpodgIlbxxc/maxresdefault.jpg" 
-               onerror="this.src='https://img.youtube.com/vi/FpodgIlbxxc/hqdefault.jpg'"
-               alt="Ideas LED Quino - Video de demostración" class="thumb-img" loading="lazy">
-          <div class="play-overlay">
-            <div class="play-btn">
-              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24L27 14v20" fill="white"/></svg>
-            </div>
-          </div>
-        </div>
-        <!-- Iframe loads on click -->
-        <iframe id="videoIframe" 
-                src="" 
-                data-src="https://www.youtube.com/embed/FpodgIlbxxc?autoplay=1&rel=0&modestbranding=1"
-                title="Ideas LED Quino - Video de demostración" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-                loading="lazy"
-                style="display:none; width:100%; height:100%; border:0;"></iframe>
-      </div>
-    </div>
-    <p class="videos-note">Más videos de entregas y eventos próximamente.</p>
-  </div>
-</section>
-
-<script>
-function loadVideo() {
-  var thumb = document.getElementById('videoThumb');
-  var iframe = document.getElementById('videoIframe');
-  if (thumb && iframe) {
-    var src = iframe.getAttribute('data-src');
-    iframe.src = src;
-    thumb.style.display = 'none';
-    iframe.style.display = 'block';
-  }
-}
-</script>
+</div>
 
 <!-- PRODUCTS -->
 <section class="products" id="productos">
@@ -1877,11 +1813,11 @@ function loadVideo() {
           <div class="calc-field">
             <label>1. Tipo de pista</label>
             <div class="calc-options" id="calcType">
-              <button class="calc-btn active" data-type="burbuja">
+              <button class="calc-btn active" data-type="burbuja" onclick="selectType('burbuja',this)">
                 <span class="calc-btn-name">LED Burbuja</span>
                 <span class="calc-btn-price">$7,800 MXN/módulo</span>
               </button>
-              <button class="calc-btn" data-type="bala">
+              <button class="calc-btn" data-type="bala" onclick="selectType('bala',this)">
                 <span class="calc-btn-name">LED Bala</span>
                 <span class="calc-btn-price">$6,800 MXN/módulo</span>
               </button>
@@ -1893,7 +1829,7 @@ function loadVideo() {
             <label>2. Cantidad de módulos</label>
             <div class="calc-qty-wrap">
               <button class="calc-qty-btn" id="calcMinus" onclick="changeQty(-1)">−</button>
-              <input type="number" id="calcQty" value="16" min="1" step="1" class="calc-qty-input" oninput="updateCalc()">
+              <input type="number" id="calcQty" value="16" min="1" step="1" class="calc-qty-input">
               <button class="calc-qty-btn" id="calcPlus" onclick="changeQty(1)">+</button>
             </div>
             <p class="calc-qty-hint">Escribe la cantidad o usa los botones. Mínimo 1 módulo, sin límite máximo.</p>
@@ -1922,11 +1858,256 @@ function loadVideo() {
           </div>
 
           <a href="#" target="_blank" class="btn-primary calc-cta" id="calcWaLink">💬 Solicitar cotización por WhatsApp</a>
+          <button class="calc-pdf-btn" onclick="generarCotizacion()">
+            📄 Generar Cotización PDF <span style="font-size:9px;opacity:0.5;">(próximamente)</span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+<!-- FEATURES -->
+<section class="features" id="caracteristicas">
+  <p class="section-eyebrow">Características</p>
+  <h2 class="section-title">CALIDAD <span class="dim">QUE SE NOTA</span></h2>
+
+  <div class="features-slider">
+    <div class="feat feat-slide">
+      <div class="feat-icon red">🔩</div>
+      <h3>ALTA RESISTENCIA</h3>
+      <p>Chasis de acero, acabados en aluminio y vidrio templado de 9mm. Soporta tráfico intenso noche tras noche.</p>
+    </div>
+    <div class="feat feat-slide">
+      <div class="feat-icon blue">💡</div>
+      <h3>LED RGB DINÁMICO</h3>
+      <p>Colores intensos con efectos sincronizados para crear la atmósfera perfecta en tu evento.</p>
+    </div>
+    <div class="feat feat-slide">
+      <div class="feat-icon green">🔧</div>
+      <h3>INSTALACIÓN SENCILLA</h3>
+      <p>Sistema modular con conector XLR y bases niveladoras. Te asesoramos en el montaje sin costo adicional.</p>
+    </div>
+    <div class="feat feat-slide">
+      <div class="feat-icon red">🎛️</div>
+      <h3>CONTROL EN TIEMPO REAL</h3>
+      <p>Maneja patrones, colores e intensidad desde el control incluido, sincronizado con la música del evento.</p>
+    </div>
+    <div class="feat feat-slide">
+      <div class="feat-icon blue">🌐</div>
+      <h3>INTERIOR Y EXTERIOR</h3>
+      <p>Diseñadas para funcionar tanto en piso como en jardín. Ideales para bodas, XV años, corporativos y más.</p>
+    </div>
+    <div class="feat feat-slide">
+      <div class="feat-icon green">🚚</div>
+      <h3>ENVÍOS NACIONALES</h3>
+      <p>Mandamos a cualquier estado de México. El costo se calcula según tu ubicación al momento de la compra.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-us">
+  <div class="why-us-inner">
+    <p class="section-eyebrow">Nuestra marca</p>
+    <h2 class="section-title">¿POR QUÉ ELEGIR <span class="dim">IDEAS LED?</span></h2>
+    <p class="section-desc">Fabricamos pistas LED y robots para eventos con materiales resistentes, iluminación profesional y soporte personalizado.</p>
+
+    <div class="why-accordion">
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">01</span>
+          <span class="acc-title-text">Chasis de acero</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Estructura robusta para uso constante en eventos de alto tráfico.</p></div>
+      </div>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">02</span>
+          <span class="acc-title-text">Acabados de aluminio</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Resistencia ligera y duradera que combina estética con funcionalidad.</p></div>
+      </div>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">03</span>
+          <span class="acc-title-text">Vidrio templado 9mm</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Seguridad y estabilidad para soportar el tráfico de bailarines durante horas.</p></div>
+      </div>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">04</span>
+          <span class="acc-title-text">Control en tiempo real</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Maneja la iluminación, patrones y colores al ritmo del evento desde el control.</p></div>
+      </div>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">05</span>
+          <span class="acc-title-text">Bases niveladoras</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Instalación estable en cualquier superficie, interior o exterior.</p></div>
+      </div>
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <div class="acc-header">
+          <span class="acc-num">06</span>
+          <span class="acc-title-text">Asesoría incluida</span>
+          <span class="acc-arrow">›</span>
+        </div>
+        <div class="acc-body"><p>Soporte personalizado en manejo del control, instalación y transporte.</p></div>
+      </div>
+    </div>
+
+    <div class="mini-cta">
+      <a href="https://wa.me/527751069872" target="_blank" class="btn-primary">💬 Cotizar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- REAL EVENTS -->
+<section class="events" id="eventos">
+  <div class="section-header-center">
+    <p class="section-eyebrow">Presencia nacional</p>
+    <h2 class="section-title">EVENTOS REALES EN <span class="dim">TODA LA REPÚBLICA</span></h2>
+    <p class="section-desc">Nuestros productos han estado presentes en bodas, XV años, fiestas y eventos corporativos.</p>
+  </div>
+
+  <div class="events-gallery">
+    <div class="event-card event-tall">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/evento_1_qgvymt.png"
+             alt="Pista LED en boda"
+             loading="lazy"
+             style="object-position: center top;">
+      </div>
+      <div class="event-label"><span class="event-tag">💒</span> Bodas</div>
+    </div>
+
+    <div class="events-more ev-hidden" id="eventsMask">
+    <div class="event-card">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/xv1_lggtad.png"
+             alt="Pista LED en fiesta de XV años"
+             loading="lazy"
+             style="object-position: center;">
+      </div>
+      <div class="event-label"><span class="event-tag">🎉</span> XV Años</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
+             alt="Pista LED en evento corporativo"
+             loading="lazy"
+             style="object-position: center;">
+      </div>
+      <div class="event-label"><span class="event-tag">🏢</span> Corporativos</div>
+    </div>
+
+    <div class="event-card event-wide">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
+             alt="Instalación grande de pistas LED"
+             loading="lazy"
+             style="object-position: center;">
+      </div>
+      <div class="event-label"><span class="event-tag">🎊</span> Eventos grandes — configuración sin límite de módulos</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/robots1_fr2nw8.png"
+             alt="Robots LED en evento"
+             loading="lazy"
+             style="object-position: center top;">
+      </div>
+      <div class="event-label"><span class="event-tag">🤖</span> Robots LED</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-illustration">
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/pista_1_qlr2kp.png"
+             alt="Pista LED en fiesta privada"
+             loading="lazy"
+             style="object-position: center;">
+      </div>
+      <div class="event-label"><span class="event-tag">✨</span> Fiestas privadas</div>
+    </div>
+    </div><!-- /events-more -->
+  </div>
+
+  <div class="gallery-toggle-wrap">
+    <button class="gallery-toggle-btn" onclick="toggleGallery(this)">
+      Ver galería completa ▼
+    </button>
+  </div>
+
+  <div class="gallery-note">
+    <div class="gallery-note-inner">
+      <div class="gallery-note-icon">📸</div>
+      <div>
+        <p class="gallery-note-title">Galería de proyectos reales en actualización</p>
+        <p class="gallery-note-text">Próximamente publicaremos fotografías de nuestras instalaciones reales en todo México.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos-section" id="videos">
+  <div class="videos-inner">
+    <p class="section-eyebrow">Demostraciones</p>
+    <h2 class="section-title">MIRA NUESTROS PRODUCTOS <span class="dim">EN ACCIÓN</span></h2>
+    <p class="section-desc" style="margin: 0 auto;">Videos reales de instalaciones, eventos y funcionamiento de nuestros productos.</p>
+
+    <div class="video-frame-wrap">
+      <div class="video-container" id="videoContainer">
+        <!-- YouTube thumbnail fallback -->
+        <div class="video-thumb" id="videoThumb" onclick="loadVideo()" title="Reproducir video">
+          <img src="https://img.youtube.com/vi/FpodgIlbxxc/maxresdefault.jpg" 
+               onerror="this.src='https://img.youtube.com/vi/FpodgIlbxxc/hqdefault.jpg'"
+               alt="Ideas LED Quino - Video de demostración" class="thumb-img" loading="lazy">
+          <div class="play-overlay">
+            <div class="play-btn">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24L27 14v20" fill="white"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- Iframe loads on click -->
+        <iframe id="videoIframe" 
+                src="" 
+                data-src="https://www.youtube.com/embed/FpodgIlbxxc?autoplay=1&rel=0&modestbranding=1"
+                title="Ideas LED Quino - Video de demostración" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                loading="lazy"
+                style="display:none; width:100%; height:100%; border:0;"></iframe>
+      </div>
+    </div>
+    <p class="videos-note">Más videos de entregas y eventos próximamente.</p>
+  </div>
+</section>
+
+<script>
+function loadVideo() {
+  var thumb = document.getElementById('videoThumb');
+  var iframe = document.getElementById('videoIframe');
+  if (thumb && iframe) {
+    var src = iframe.getAttribute('data-src');
+    iframe.src = src;
+    thumb.style.display = 'none';
+    iframe.style.display = 'block';
+  }
+}
+</script>
+
 
 <!-- ROBOTS -->
 <section class="robots" id="robots">
@@ -2112,17 +2293,151 @@ function loadVideo() {
     </div>
 
     <div class="map-visual">
-      <svg class="map-illustration" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="opacity:0.4; filter: saturate(0.6);">
-        <path d="M60 40 L120 30 L180 45 L230 35 L280 50 L320 70 L340 100 L330 130 L300 150 L310 180 L290 210 L260 230 L220 240 L190 260 L160 250 L140 220 L110 200 L90 170 L70 140 L50 110 L45 75 Z"
-          fill="none" stroke="rgba(224,24,64,0.3)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <path d="M60 40 L120 30 L180 45 L230 35 L280 50 L320 70 L340 100 L330 130 L300 150 L310 180 L290 210 L260 230 L220 240 L190 260 L160 250 L140 220 L110 200 L90 170 L70 140 L50 110 L45 75 Z"
-          fill="rgba(224,24,64,0.03)"/>
-        <circle cx="150" cy="90" r="3" fill="#22FF77"><animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/></circle>
-        <circle cx="220" cy="130" r="3" fill="#3B82FF"><animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
-        <circle cx="180" cy="190" r="3" fill="#E01840"><animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/></circle>
-        <circle cx="120" cy="160" r="3" fill="#FFD700"><animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/></circle>
-        <circle cx="260" cy="90" r="3" fill="#22FF77"><animate attributeName="opacity" values="1;0.2;1" dur="2.6s" repeatCount="indefinite"/></circle>
-      </svg>
+      <div class="map-wrap">
+        <img class="map-base-img"
+             src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1782013606/mapa_mex_sfhrtq.png"
+             alt="Mapa de cobertura Ideas LED — México"
+             loading="lazy">
+        <!--
+          SVG overlay: city nodes + connection lines
+          viewBox="0 0 100 65" maps to 100% × 100% of the img.
+          City coordinates are geographic proportions of Mexico:
+          x = (lon+117.1)/30.3*100  y = (32.7-lat)/18.2*65
+        -->
+        <svg class="map-nodes-svg" viewBox="0 0 100 65"
+             preserveAspectRatio="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="ng" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="0.9" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── CONNECTION LINES (curved, low opacity) ── -->
+          <g fill="none" stroke="rgba(220,30,50,0.22)" stroke-width="0.35" stroke-dasharray="2,3">
+            <!-- CDMX → Monterrey -->
+            <path d="M 57,48 C 57,36 55,30 52,26"/>
+            <!-- CDMX → Guadalajara -->
+            <path d="M 57,48 C 50,46 44,44 42,43"/>
+            <!-- CDMX → Puebla (short straight) -->
+            <path d="M 57,48 L 60,49"/>
+            <!-- CDMX → Mérida -->
+            <path d="M 57,48 C 70,46 80,43 87,42"/>
+            <!-- Mérida → Cancún -->
+            <path d="M 87,42 L 93,40"/>
+            <!-- Monterrey → Chihuahua -->
+            <path d="M 52,26 C 44,22 38,17 34,14"/>
+            <!-- Chihuahua → Tijuana -->
+            <path d="M 34,14 C 22,10 12,6 4,3"/>
+          </g>
+
+          <!-- ── CITY LED NODES ── -->
+          <!-- Tijuana — NW corner of Baja -->
+          <g filter="url(#ng)">
+            <circle cx="4" cy="3" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="4" cy="3" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <text x="5.8" y="3.8" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Tijuana</text>
+          </g>
+
+          <!-- Chihuahua -->
+          <g filter="url(#ng)">
+            <circle cx="34" cy="14" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.9s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.9s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="34" cy="14" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.9s" repeatCount="indefinite"/>
+            </circle>
+            <text x="35.8" y="14.8" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Chihuahua</text>
+          </g>
+
+          <!-- Monterrey -->
+          <g filter="url(#ng)">
+            <circle cx="52" cy="26" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.0s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.0s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="52" cy="26" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.0s" repeatCount="indefinite"/>
+            </circle>
+            <text x="53.8" y="26.8" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Monterrey</text>
+          </g>
+
+          <!-- Guadalajara -->
+          <g filter="url(#ng)">
+            <circle cx="42" cy="43" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.6s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="42" cy="43" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.6s" repeatCount="indefinite"/>
+            </circle>
+            <text x="43.8" y="43.8" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Guadalajara</text>
+          </g>
+
+          <!-- CDMX — capital, larger node -->
+          <g filter="url(#ng)">
+            <circle cx="57" cy="48" r="1.4" fill="none" stroke="rgba(224,24,64,0.55)" stroke-width="0.7">
+              <animate attributeName="r" values="1.4;3;1.4" dur="1.6s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="57" cy="48" r="0.85" fill="#ff2244">
+              <animate attributeName="opacity" values="1;0.5;1" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+            <text x="58.8" y="48.8" font-family="system-ui,sans-serif" font-size="2.6"
+                  fill="rgba(255,255,255,0.75)" font-weight="600" letter-spacing="0.1">CDMX</text>
+          </g>
+
+          <!-- Puebla -->
+          <g filter="url(#ng)">
+            <circle cx="60" cy="50" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="60" cy="50" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <text x="61.8" y="50.8" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Puebla</text>
+          </g>
+
+          <!-- Mérida -->
+          <g filter="url(#ng)">
+            <circle cx="87" cy="42" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="87" cy="42" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <text x="82" y="40.5" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Mérida</text>
+          </g>
+
+          <!-- Cancún -->
+          <g filter="url(#ng)">
+            <circle cx="93" cy="40" r="0.9" fill="none" stroke="rgba(224,24,64,0.45)" stroke-width="0.5">
+              <animate attributeName="r" values="0.9;2;0.9" dur="2.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.2;1" dur="2.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="93" cy="40" r="0.55" fill="#E01840">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.8s" repeatCount="indefinite"/>
+            </circle>
+            <text x="88" y="38.5" font-family="system-ui,sans-serif" font-size="2.4"
+                  fill="rgba(255,255,255,0.62)" letter-spacing="0.1">Cancún</text>
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -2208,17 +2523,19 @@ function loadVideo() {
 </footer>
 
 <script>
-  // ── Generate hero LED floor ──
+  // ── Generate hero LED floor (guard: element replaced by img in current build) ──
   const heroFloor = document.getElementById('heroFloor');
   const colors = ['#FF3366','#3B82FF','#22FF77','#FFD700','#FF6600','#CC33FF','#00FFFF'];
 
-  for (let i = 0; i < 256; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'floor-dot';
-    const c = colors[Math.floor(Math.random() * colors.length)];
-    const delay = (Math.random() * 4).toFixed(2);
-    dot.style.cssText = `background:${c}; --delay:${delay}s; animation-delay:${delay}s;`;
-    heroFloor.appendChild(dot);
+  if (heroFloor) {
+    for (let i = 0; i < 256; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'floor-dot';
+      const c = colors[Math.floor(Math.random() * colors.length)];
+      const delay = (Math.random() * 4).toFixed(2);
+      dot.style.cssText = `background:${c}; --delay:${delay}s; animation-delay:${delay}s;`;
+      heroFloor.appendChild(dot);
+    }
   }
 
   // ── Generate product card floors ──
@@ -2255,80 +2572,146 @@ function loadVideo() {
     observer.observe(el);
   });
 
-  // ── MODULE-BASED PRICE CALCULATOR ──
-  const MODULE_PRICES = { burbuja: 7800, bala: 6800 };
-  const MODULE_AREA = 1.44; // 1.20 × 1.20 m²
-  const LABELS = { burbuja: 'LED Burbuja', bala: 'LED Bala' };
-  const WA_NUMBER = '527751069872';
+  // ═══════════════════════════════════════════
+  // CALCULADORA LED — lógica centralizada
+  // ═══════════════════════════════════════════
+  var CALC_PRICES  = { burbuja: 7800, bala: 6800 };
+  var CALC_AREA_M2 = 1.44;  // 1.20 × 1.20 m²
+  var CALC_LABELS  = { burbuja: 'LED Burbuja', bala: 'LED Bala' };
+  var CALC_WA      = '527751069872';
 
-  let calcState = { type: 'burbuja', qty: 16 };
+  // Estado mutable global (sin closures que puedan quedar rancios)
+  window._calcType = 'burbuja';
+  window._calcQty  = 16;
 
-  function changeQty(delta) {
-    const input = document.getElementById('calcQty');
-    let val = parseInt(input.value) || 1;
+  // Actualiza el resumen y el enlace de WhatsApp
+  window.renderCalc = function () {
+    var tipo   = window._calcType;
+    var qty    = window._calcQty;
+    var area   = (qty * CALC_AREA_M2).toFixed(1);
+    var precio = qty * CALC_PRICES[tipo];
+    var precioFmt = precio.toLocaleString('es-MX');
+    var label = CALC_LABELS[tipo];
+
+    // ── DEBUG (quitar después de validar) ──────────────
+    console.log('[LED Calc] tipo=' + tipo
+      + ' | módulos=' + qty
+      + ' | área=' + area + 'm²'
+      + ' | precio=$' + precioFmt + ' MXN');
+    // ───────────────────────────────────────────────────
+
+    var elType  = document.getElementById('calcResType');
+    var elMods  = document.getElementById('calcResMods');
+    var elArea  = document.getElementById('calcResArea');
+    var elPrice = document.getElementById('calcResPrice');
+
+    if (elType)  elType.textContent  = label;
+    if (elMods)  elMods.textContent  = qty;
+    if (elArea)  elArea.textContent  = area + ' m\u00b2';
+    if (elPrice) elPrice.textContent = '$' + precioFmt + ' MXN';
+
+    var msg = encodeURIComponent(
+      'Hola, me interesa cotizar una pista LED.\n\n'
+      + 'Tipo: ' + label + '\n'
+      + 'Cantidad: ' + qty + ' m\u00f3dulo' + (qty !== 1 ? 's' : '') + '\n'
+      + '\u00c1rea aproximada: ' + area + ' m\u00b2\n'
+      + 'Precio estimado: $' + precioFmt + ' MXN\n\n'
+      + '\u00bfPodr\u00edan brindarme m\u00e1s informaci\u00f3n?'
+    );
+    var waLink = document.getElementById('calcWaLink');
+    if (waLink) waLink.href = 'https://wa.me/' + CALC_WA + '?text=' + msg;
+  };
+
+  // Cambia el tipo de pista (llamado por onclick del botón)
+  window.selectType = function (tipo, btn) {
+    window._calcType = tipo;
+    document.querySelectorAll('#calcType .calc-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+    window.renderCalc();
+  };
+
+  // Botones + / −
+  window.changeQty = function (delta) {
+    var input = document.getElementById('calcQty');
+    var val = parseInt(input.value, 10);
+    if (isNaN(val) || val < 1) val = window._calcQty;
     val = Math.max(1, val + delta);
     input.value = val;
-    calcState.qty = val;
-    updateCalc();
+    window._calcQty = val;
+    window.renderCalc();
+  };
+
+  // Input libre: actualiza mientras escribe
+  (function () {
+    var inp = document.getElementById('calcQty');
+    if (!inp) return;
+
+    inp.addEventListener('input', function () {
+      var v = parseInt(this.value, 10);
+      if (!isNaN(v) && v >= 1) {
+        window._calcQty = v;
+        window.renderCalc();
+      }
+    });
+
+    inp.addEventListener('blur', function () {
+      var v = parseInt(this.value, 10) || 1;
+      v = Math.max(1, v);
+      this.value = v;
+      window._calcQty = v;
+      window.renderCalc();
+    });
+  })();
+
+  // Render inicial
+  window.renderCalc();
+
+  // ── ACCORDION ──
+  function toggleAcc(item) {
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(function(i) {
+      i.classList.remove('open');
+    });
+    if (!isOpen) item.classList.add('open');
   }
 
-  function updateCalc() {
-    const input = document.getElementById('calcQty');
-    let qty = parseInt(input.value) || 1;
-    qty = Math.max(1, qty);
-    input.value = qty;
-    calcState.qty = qty;
+  // ── GALLERY TOGGLE ──
+  function toggleGallery(btn) {
+    var more = document.getElementById('eventsMask');
+    if (!more) return;
+    var hidden = more.classList.contains('ev-hidden');
+    if (hidden) {
+      more.classList.remove('ev-hidden');
+      btn.textContent = 'Ocultar galería ▲';
+      // lazy-load the images now
+      more.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+        if (img.dataset.src) { img.src = img.dataset.src; }
+      });
+    } else {
+      more.classList.add('ev-hidden');
+      btn.textContent = 'Ver galería completa ▼';
+    }
+  }
 
-    const price = MODULE_PRICES[calcState.type] * qty;
-    const area = (MODULE_AREA * qty).toFixed(1);
-    const priceFormatted = price.toLocaleString('es-MX');
-    const label = LABELS[calcState.type];
-
-    // Update result display
-    const resType = document.getElementById('calcResType');
-    const resMods = document.getElementById('calcResMods');
-    const resArea = document.getElementById('calcResArea');
-    const resPrice = document.getElementById('calcResPrice');
-    if (resType) resType.textContent = label;
-    if (resMods) resMods.textContent = qty;
-    if (resArea) resArea.textContent = area + ' m²';
-    if (resPrice) resPrice.textContent = '$' + priceFormatted + ' MXN';
-
-    // Smart WhatsApp message
-    const msg = encodeURIComponent(
-      `Hola, me interesa cotizar una pista LED.\n\n` +
-      `Tipo: ${label}\n` +
-      `Cantidad: ${qty} módulo${qty !== 1 ? 's' : ''}\n` +
-      `Área aproximada: ${area} m²\n` +
-      `Precio estimado: $${priceFormatted} MXN\n\n` +
-      `¿Podrían brindarme más información?`
+  // ── PDF PLACEHOLDER ──
+  function generarCotizacion() {
+    var tipo  = window._calcType || 'burbuja';
+    var qty   = window._calcQty  || 16;
+    var area  = (qty * 1.44).toFixed(1);
+    var price = qty * (tipo === 'burbuja' ? 7800 : 6800);
+    var label = tipo === 'burbuja' ? 'LED Burbuja' : 'LED Bala';
+    alert(
+      '📄 Cotización Ideas LED\n\n' +
+      'Tipo: ' + label + '\n' +
+      'Módulos: ' + qty + '\n' +
+      'Área: ' + area + ' m²\n' +
+      'Precio: $' + price.toLocaleString('es-MX') + ' MXN\n\n' +
+      'La descarga de PDF estará disponible próximamente.\n' +
+      'Por ahora, comuníquese por WhatsApp para recibir su cotización formal.'
     );
-    const link = document.getElementById('calcWaLink');
-    if (link) link.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
   }
-
-  // Type selector
-  document.querySelectorAll('#calcType .calc-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#calcType .calc-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      calcState.type = btn.dataset.type;
-      updateCalc();
-    });
-  });
-
-  // Quantity input live update
-  const qtyInput = document.getElementById('calcQty');
-  if (qtyInput) {
-    qtyInput.addEventListener('input', updateCalc);
-    qtyInput.addEventListener('blur', () => {
-      let v = parseInt(qtyInput.value) || 1;
-      qtyInput.value = Math.max(1, v);
-      updateCalc();
-    });
-  }
-
-  updateCalc();
 </script>
 </body>
 </html>
