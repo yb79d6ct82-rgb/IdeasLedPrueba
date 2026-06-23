@@ -121,7 +121,7 @@
     display: flex; align-items: center; justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 80px 48px 48px;
+    padding: 140px 48px 64px;
   }
 
   .led-grid {
@@ -228,7 +228,84 @@
     font-weight: 700;
   }
 
-  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+  .hero-btns a {
+    flex: 1 1 auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ── Hero trust line ── */
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: rgba(255,255,255,0.36);
+    letter-spacing: 0.2px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .hero-trust-sep {
+    color: rgba(255,255,255,0.18);
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  /* ── Hero social links ── */
+  .hero-socials {
+    margin-bottom: 22px;
+  }
+
+  .hero-social-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.4px;
+    margin-bottom: 11px;
+  }
+
+  .hero-social-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .hero-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 6px 12px 6px 8px;
+    border-radius: 7px;
+    transition: color 0.22s, background 0.22s;
+  }
+
+  .hero-social-link img {
+    height: 26px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    filter: saturate(0.55) brightness(0.82);
+    transition: filter 0.22s;
+    flex-shrink: 0;
+  }
+
+  .hero-social-link:hover {
+    color: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.06);
+  }
+  .hero-social-link:hover img { filter: saturate(1) brightness(1.08); }
 
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
@@ -551,6 +628,30 @@
   .event-card:not(.event-tall) .event-illustration svg { width: 100%; height: 160px; }
   .event-card.event-wide .event-illustration svg { width: 100%; }
 
+  /* Featured (collapsed view) card — full width, optimised for horizontal photo */
+  .event-featured {
+    grid-column: 1 / -1;
+  }
+  .event-featured .event-illustration {
+    height: 280px;
+  }
+  @media (max-width: 900px) {
+    .event-featured .event-illustration { height: 240px; }
+  }
+  @media (max-width: 600px) {
+    .event-featured .event-illustration { height: 200px; }
+  }
+
+  /* Caption below featured image */
+  .events-caption {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.38);
+    letter-spacing: 0.3px;
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
   .event-label {
     padding: 12px 16px;
     font-size: 12px;
@@ -699,9 +800,9 @@
 
   .price-from-badge {
     position: absolute; top: 16px; left: 16px;
-    background: rgba(8,8,8,0.85);
-    border: 1px solid rgba(34,255,119,0.4);
-    color: var(--glow-g);
+    background: rgba(8,8,8,0.88);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.82);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -1451,11 +1552,60 @@
 
   .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
 
+  .footer-legal {
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .footer-legal-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.22);
+    letter-spacing: 0.4px;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-legal-links a {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    transition: color 0.2s;
+  }
+
+  .footer-legal-links a:hover { color: var(--red); }
+
+  .footer-legal-sep {
+    color: rgba(255,255,255,0.14);
+    font-size: 11px;
+    user-select: none;
+  }
+
+  @media (max-width: 600px) {
+    .footer-legal { gap: 12px; padding-top: 16px; }
+    .footer-legal-links { gap: 10px; }
+  }
+
   /* ── RESPONSIVE GLOBAL ── */
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hero { padding: 70px 20px 40px; }
+    .hero { padding: 100px 20px 48px; }
+    .hero-btns { flex-direction: column; }
+    .hero-btns a { width: 100%; flex: none; }
     .hero-content { grid-template-columns: 1fr; gap: 40px; }
     .hero-visual { display: none; }
     .trust-bar { padding: 24px; }
@@ -1478,7 +1628,47 @@
     .footer-links { justify-content: center; }
   }
 
-  /* ── STICKY NAV ── */
+
+  /* ── ANTICIPO BADGES ── */
+  .promo-anticipo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 20px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+  }
+
+  /* Burbuja — dorado elegante */
+  .promo-hot {
+    background: linear-gradient(90deg, #a0720a, #d4af37, #c49a1e, #d4af37, #a0720a);
+    background-size: 200% 100%;
+    background-position: 0 0;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(60,35,0,0.55);
+    box-shadow: 0 0 14px rgba(212,175,55,0.35);
+    animation: promoPulse 5s ease-in-out infinite;
+  }
+
+  /* Bala — gris discreto, sin animación */
+  .promo-subtle {
+    background: rgba(255,255,255,0.04);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.36);
+    font-size: 10.5px;
+    letter-spacing: 1.2px;
+  }
+
+  @keyframes promoPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(212,175,55,0.28); }
+    50%       { box-shadow: 0 0 24px rgba(212,175,55,0.55), 0 0 40px rgba(212,175,55,0.12); }
+  }
+
+
   .sticky-nav {
     position: sticky;
     top: 0; z-index: 500;
@@ -1514,23 +1704,61 @@
   }
 
   /* ── FEATURES SLIDER ── */
+  /* ── FEATURES CAROUSEL ── */
+  .carousel-wrap {
+    position: relative;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .carousel-viewport {
+    flex: 1;
+    overflow: hidden;
+    cursor: grab;
+  }
+  .carousel-viewport:active { cursor: grabbing; }
+
   .features-slider {
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
     gap: 16px;
-    padding: 8px 0 28px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(224,24,64,0.35) transparent;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  .features-slider::-webkit-scrollbar { height: 3px; }
-  .features-slider::-webkit-scrollbar-thumb { background: rgba(224,24,64,0.35); border-radius: 2px; }
+
   .feat-slide {
-    flex: 0 0 240px;
-    scroll-snap-align: start;
+    flex: 0 0 258px;
   }
-  @media (max-width: 600px) { .feat-slide { flex: 0 0 195px; } }
+
+  .car-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .car-btn:hover {
+    background: rgba(224,24,64,0.2);
+    color: #fff;
+    border-color: rgba(224,24,64,0.45);
+  }
+
+  @media (max-width: 900px) {
+    .feat-slide { flex: 0 0 230px; }
+    .car-btn { display: none; }
+  }
+  @media (max-width: 600px) {
+    .feat-slide { flex: 0 0 calc(78vw); }
+    .carousel-wrap { gap: 0; }
+  }
 
   /* ── ACCORDION ── */
   .why-accordion { margin-top: 32px; }
@@ -1653,6 +1881,31 @@
         <div class="hero-benefit"><span class="check">✓</span> Fabricación profesional</div>
         <div class="hero-benefit"><span class="check">✓</span> Atención personalizada</div>
       </div>
+
+      <div class="hero-trust">
+        <span>📍 Fabricamos en Tulancingo, Hidalgo</span>
+      </div>
+
+      <div class="hero-socials">
+        <p class="hero-social-label">Conoce nuestras instalaciones reales:</p>
+        <div class="hero-social-links">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="hero-social-link">
+            <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1782183507/facebook-logo-facebook-social-media-icon-free-png_l8hjkb.webp"
+                 alt="Facebook Ideas LED"
+                 loading="lazy"
+                 height="20">
+            <span>Facebook</span>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="hero-social-link">
+            <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1782184461/youtube-logo-youtube-icon-transparent-free-png_dklojx.webp"
+                 alt="YouTube Ideas LED"
+                 loading="lazy"
+                 height="26">
+            <span>YouTube</span>
+          </a>
+        </div>
+      </div>
+
       <div class="hero-btns">
         <a href="https://wa.me/527751069872" target="_blank" class="btn-primary">💬 Cotizar por WhatsApp</a>
         <a href="#eventos" class="btn-outline">Ver proyectos realizados</a>
@@ -1725,10 +1978,13 @@
     <div class="products-grid">
       <!-- BURBUJA -->
       <div class="product-card">
-        <span class="price-from-badge">Desde $124,800 MXN</span>
+        <span class="price-from-badge">$7,800 MXN / MÓDULO</span>
         <span class="product-badge">Premium</span>
         <div class="product-visual burbuja">
           <div class="mini-floor burbuja" id="floorBurbuja"></div>
+        </div>
+        <div class="promo-anticipo promo-hot">
+          ⭐ SOLO 5% DE ANTICIPO
         </div>
         <div class="product-body">
           <p class="product-type">Pista LED Pixel</p>
@@ -1763,9 +2019,12 @@
 
       <!-- BALA -->
       <div class="product-card">
-        <span class="price-from-badge">Desde $104,000 MXN</span>
+        <span class="price-from-badge">$6,800 MXN / MÓDULO</span>
         <div class="product-visual bala">
           <div class="mini-floor bala" id="floorBala"></div>
+        </div>
+        <div class="promo-anticipo promo-subtle">
+          50% DE ANTICIPO
         </div>
         <div class="product-body">
           <p class="product-type">Pista LED Pixel</p>
@@ -1873,37 +2132,43 @@
   <p class="section-eyebrow">Características</p>
   <h2 class="section-title">CALIDAD <span class="dim">QUE SE NOTA</span></h2>
 
-  <div class="features-slider">
-    <div class="feat feat-slide">
-      <div class="feat-icon red">🔩</div>
-      <h3>ALTA RESISTENCIA</h3>
-      <p>Chasis de acero, acabados en aluminio y vidrio templado de 9mm. Soporta tráfico intenso noche tras noche.</p>
+  <div class="carousel-wrap" id="featCarousel">
+    <button class="car-btn car-prev" aria-label="Anterior" onclick="carPrev()">‹</button>
+    <div class="carousel-viewport">
+      <div class="features-slider" id="carTrack">
+        <div class="feat feat-slide">
+          <div class="feat-icon red">🔩</div>
+          <h3>ALTA RESISTENCIA</h3>
+          <p>Chasis de acero, acabados en aluminio y vidrio templado de 9mm. Soporta tráfico intenso noche tras noche.</p>
+        </div>
+        <div class="feat feat-slide">
+          <div class="feat-icon blue">💡</div>
+          <h3>LED RGB DINÁMICO</h3>
+          <p>Colores intensos con efectos sincronizados para crear la atmósfera perfecta en tu evento.</p>
+        </div>
+        <div class="feat feat-slide">
+          <div class="feat-icon green">🔧</div>
+          <h3>INSTALACIÓN SENCILLA</h3>
+          <p>Sistema modular con conector XLR y bases niveladoras. Te asesoramos en el montaje sin costo adicional.</p>
+        </div>
+        <div class="feat feat-slide">
+          <div class="feat-icon red">🎛️</div>
+          <h3>CONTROL EN TIEMPO REAL</h3>
+          <p>Maneja patrones, colores e intensidad desde el control incluido, sincronizado con la música del evento.</p>
+        </div>
+        <div class="feat feat-slide">
+          <div class="feat-icon blue">🌐</div>
+          <h3>INTERIOR Y EXTERIOR</h3>
+          <p>Diseñadas para funcionar tanto en piso como en jardín. Ideales para bodas, XV años, corporativos y más.</p>
+        </div>
+        <div class="feat feat-slide">
+          <div class="feat-icon green">🚚</div>
+          <h3>ENVÍOS NACIONALES</h3>
+          <p>Mandamos a cualquier estado de México. El costo se calcula según tu ubicación al momento de la compra.</p>
+        </div>
+      </div>
     </div>
-    <div class="feat feat-slide">
-      <div class="feat-icon blue">💡</div>
-      <h3>LED RGB DINÁMICO</h3>
-      <p>Colores intensos con efectos sincronizados para crear la atmósfera perfecta en tu evento.</p>
-    </div>
-    <div class="feat feat-slide">
-      <div class="feat-icon green">🔧</div>
-      <h3>INSTALACIÓN SENCILLA</h3>
-      <p>Sistema modular con conector XLR y bases niveladoras. Te asesoramos en el montaje sin costo adicional.</p>
-    </div>
-    <div class="feat feat-slide">
-      <div class="feat-icon red">🎛️</div>
-      <h3>CONTROL EN TIEMPO REAL</h3>
-      <p>Maneja patrones, colores e intensidad desde el control incluido, sincronizado con la música del evento.</p>
-    </div>
-    <div class="feat feat-slide">
-      <div class="feat-icon blue">🌐</div>
-      <h3>INTERIOR Y EXTERIOR</h3>
-      <p>Diseñadas para funcionar tanto en piso como en jardín. Ideales para bodas, XV años, corporativos y más.</p>
-    </div>
-    <div class="feat feat-slide">
-      <div class="feat-icon green">🚚</div>
-      <h3>ENVÍOS NACIONALES</h3>
-      <p>Mandamos a cualquier estado de México. El costo se calcula según tu ubicación al momento de la compra.</p>
-    </div>
+    <button class="car-btn car-next" aria-label="Siguiente" onclick="carNext()">›</button>
   </div>
 </section>
 
@@ -1980,14 +2245,14 @@
   </div>
 
   <div class="events-gallery">
-    <div class="event-card event-tall">
+    <div class="event-card event-featured">
       <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/evento_1_qgvymt.png"
-             alt="Pista LED en boda"
+        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
+             alt="Instalación grande de pistas LED — Eventos reales Ideas LED"
              loading="lazy"
-             style="object-position: center top;">
+             style="object-position: center;">
       </div>
-      <div class="event-label"><span class="event-tag">💒</span> Bodas</div>
+      <div class="event-label"><span class="event-tag">🎊</span> Eventos grandes — configuración sin límite de módulos</div>
     </div>
 
     <div class="events-more ev-hidden" id="eventsMask">
@@ -2009,16 +2274,6 @@
              style="object-position: center;">
       </div>
       <div class="event-label"><span class="event-tag">🏢</span> Corporativos</div>
-    </div>
-
-    <div class="event-card event-wide">
-      <div class="event-illustration">
-        <img src="https://res.cloudinary.com/dkg4rfgvn/image/upload/v1781931387/paneles_muchos_t1mjdq.jpg"
-             alt="Instalación grande de pistas LED"
-             loading="lazy"
-             style="object-position: center;">
-      </div>
-      <div class="event-label"><span class="event-tag">🎊</span> Eventos grandes — configuración sin límite de módulos</div>
     </div>
 
     <div class="event-card">
@@ -2043,21 +2298,14 @@
     </div><!-- /events-more -->
   </div>
 
+  <p class="events-caption">🎉 Instalaciones reales en eventos sociales, corporativos y proyectos de gran escala.</p>
+
   <div class="gallery-toggle-wrap">
     <button class="gallery-toggle-btn" onclick="toggleGallery(this)">
       Ver galería completa ▼
     </button>
   </div>
 
-  <div class="gallery-note">
-    <div class="gallery-note-inner">
-      <div class="gallery-note-icon">📸</div>
-      <div>
-        <p class="gallery-note-title">Galería de proyectos reales en actualización</p>
-        <p class="gallery-note-text">Próximamente publicaremos fotografías de nuestras instalaciones reales en todo México.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- VIDEOS -->
@@ -2520,6 +2768,18 @@ function loadVideo() {
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <p class="footer-copy">© 2026 Ideas LED Quino · México</p>
+
+  <!-- Legal bar -->
+  <div class="footer-legal">
+    <span class="footer-legal-copy">© 2026 Ideas LED</span>
+    <div class="footer-legal-links">
+      <a href="#">Aviso de Privacidad</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="#">Contacto</a>
+      <span class="footer-legal-sep">·</span>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -2565,7 +2825,7 @@ function loadVideo() {
     });
   }, { threshold: 0.08 });
 
-  document.querySelectorAll('.feat, .product-card, .robot-card, .pay-method, .why-card, .event-card, .timeline-step, .testimonial-soon-wrap').forEach(el => {
+  document.querySelectorAll('.feat:not(.feat-slide), .product-card, .robot-card, .pay-method, .why-card, .event-card, .timeline-step, .testimonial-soon-wrap').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(28px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -2668,7 +2928,134 @@ function loadVideo() {
   // Render inicial
   window.renderCalc();
 
-  // ── ACCORDION ──
+  // ══════════════════════════════════════════════
+  // ══════════════════════════════════════════════
+  // CARRUSEL INFINITO — "Calidad que se nota"
+  // Fix: clones ahora visibles + opacity reset explícito
+  // ══════════════════════════════════════════════
+  (function () {
+    var wrap  = document.getElementById('featCarousel');
+    var track = document.getElementById('carTrack');
+    if (!wrap || !track) return;
+
+    var origCards = Array.from(track.children);
+    var n = origCards.length; // 6
+
+    // Forzar visibilidad en originales (el observer los pudo haber ocultado)
+    function makeVisible(el) {
+      el.style.opacity    = '1';
+      el.style.transform  = 'none';
+      el.style.transition = '';
+    }
+    origCards.forEach(makeVisible);
+
+    // Clonar DESPUÉS (para avanzar sin salto)
+    origCards.forEach(function (c) {
+      var clone = c.cloneNode(true);
+      makeVisible(clone);
+      track.appendChild(clone);
+    });
+
+    // Clonar ANTES (para retroceder sin salto)
+    origCards.slice().reverse().forEach(function (c) {
+      var clone = c.cloneNode(true);
+      makeVisible(clone);
+      track.insertBefore(clone, track.firstChild);
+    });
+    // Layout: [clones×n][reales×n][clones×n]  — índices reales: n … 2n−1
+
+    var idx          = n;
+    var GAP          = 16;
+    var transitioning = false;
+    var paused        = false;
+    var autoTimer     = null;
+    var resumeTimer   = null;
+
+    function cardW() {
+      var el = track.children[n];
+      return el ? el.getBoundingClientRect().width + GAP : 258 + GAP;
+    }
+
+    function goTo(i, animate) {
+      track.style.transition = animate
+        ? 'transform 0.62s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none';
+      track.style.transform = 'translateX(' + (-(i * cardW())) + 'px)';
+    }
+
+    goTo(idx, false);
+
+    track.addEventListener('transitionend', function () {
+      transitioning = false;
+      // Salto silencioso al llegar a un clon — sin animación, sin flash
+      if (idx >= 2 * n) { idx -= n; goTo(idx, false); }
+      if (idx <  n    ) { idx += n; goTo(idx, false); }
+    });
+
+    function next() {
+      if (transitioning) return;
+      transitioning = true;
+      goTo(++idx, true);
+    }
+
+    function prev() {
+      if (transitioning) return;
+      transitioning = true;
+      goTo(--idx, true);
+    }
+
+    // ── Autoplay: 3 s (más ágil, pedido por el usuario) ─────
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(function () {
+        if (!paused) next();
+      }, 3000);
+    }
+    startAuto();
+
+    // ── Botones de flecha ────────────────────────────────────
+    // Al hacer clic se pausa el autoplay y reanuda tras 3 s
+    window.carNext = function () {
+      paused = true;
+      next();
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () { paused = false; }, 3000);
+    };
+    window.carPrev = function () {
+      paused = true;
+      prev();
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () { paused = false; }, 3000);
+    };
+
+    // ── Pausa al hover (desktop) ─────────────────────────────
+    wrap.addEventListener('mouseenter', function () {
+      paused = true;
+      clearTimeout(resumeTimer);
+    });
+    wrap.addEventListener('mouseleave', function () {
+      paused = false;
+    });
+
+    // ── Swipe táctil (móvil) ─────────────────────────────────
+    var touchX0 = 0;
+    track.addEventListener('touchstart', function (e) {
+      touchX0 = e.touches[0].clientX;
+      paused  = true;
+      clearTimeout(resumeTimer);
+    }, { passive: true });
+
+    track.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchX0;
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+      resumeTimer = setTimeout(function () { paused = false; }, 2000);
+    }, { passive: true });
+
+    // ── Reposicionar en resize ───────────────────────────────
+    window.addEventListener('resize', function () { goTo(idx, false); });
+  })();
+
+
   function toggleAcc(item) {
     var isOpen = item.classList.contains('open');
     document.querySelectorAll('.acc-item').forEach(function(i) {
